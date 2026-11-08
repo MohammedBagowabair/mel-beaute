@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { site, services } from "@/lib/site";
+import { CatalogLinks } from "@/components/catalog-links";
 
 export function SiteFooter() {
   return (
@@ -23,15 +24,7 @@ export function SiteFooter() {
           <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--gold)]">
             Catalog
           </p>
-          <ul className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm text-[color:var(--cream)]/80">
-            {services.map((s) => (
-              <li key={s.id}>
-                <a href={`#${s.id}`} className="hover:text-[color:var(--cream)]">
-                  {s.catalog}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <CatalogLinks />
         </div>
 
         <div>
