@@ -109,7 +109,14 @@ export function SiteHeader() {
                 key={s.id}
                 href={`#${s.id}`}
                 className="rounded-xl bg-[color:var(--blush)]/55 px-3 py-2 text-sm text-[color:var(--berry)]"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  window.setTimeout(() => {
+                    document
+                      .getElementById("treatments")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }, 50);
+                }}
               >
                 {s.catalog}
               </a>
