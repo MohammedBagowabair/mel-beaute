@@ -39,6 +39,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-body)]">
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener('click',function(e){var a=e.target.closest('#mobile-nav a');if(!a)return;var t=document.getElementById('nav-toggle');if(t)t.checked=false;var id=a.getAttribute('data-treatment');if(!id)return;var input=document.getElementById('treatment-'+id);if(input)input.checked=true;});`,
+          }}
+        />
       </body>
     </html>
   );

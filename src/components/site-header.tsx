@@ -1,13 +1,8 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { site, services } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/about", label: "About" },
@@ -17,40 +12,17 @@ const links = [
 ];
 
 export function SiteHeader() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const solid = scrolled || open || pathname !== "/";
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-300",
-        solid
-          ? "bg-[color:var(--cream)]/90 shadow-[0_10px_30px_-20px_rgba(90,40,55,0.45)] backdrop-blur-md"
-          : "bg-transparent",
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6">
-        <Link href="/" className="group flex items-center gap-3">
+    <header className="site-header fixed inset-x-0 top-0 z-50">
+      <input
+        id="nav-toggle"
+        type="checkbox"
+        className="nav-toggle"
+        aria-controls="mobile-nav"
+      />
+
+      <div className="site-header-bar relative z-[70] mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6">
+        <Link href="/" className="flex items-center gap-3">
           <Image
             src="/brand/logo.svg"
             alt={site.name}
@@ -66,12 +38,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className={cn(
-                "font-[family-name:var(--font-body)] text-sm tracking-wide transition-colors hover:text-[color:var(--berry)]",
-                pathname === link.href
-                  ? "text-[color:var(--berry)]"
-                  : "text-[color:var(--ink)]/75",
-              )}
+              className="text-sm tracking-wide text-[color:var(--ink)]/75 transition-colors hover:text-[color:var(--berry)]"
             >
               {link.label}
             </Link>
@@ -87,82 +54,70 @@ export function SiteHeader() {
           </a>
         </nav>
 
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--gold)]/35 text-[color:var(--berry)] md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
+        <label
+          htmlFor="nav-toggle"
+          className="nav-burger inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[color:var(--gold)]/40 bg-[color:var(--cream)]/80 text-[color:var(--berry)] md:hidden"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <Menu className="nav-icon-open h-5 w-5" aria-hidden />
+          <X className="nav-icon-close h-5 w-5" aria-hidden />
+          <span className="sr-only">Open menu</span>
+        </label>
       </div>
 
-      <div
-        id="mobile-nav"
-        className={cn(
-          "border-t border-[color:var(--gold)]/20 bg-[color:var(--cream)] md:hidden",
-          open ? "block" : "hidden",
-        )}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
+      <label htmlFor="nav-toggle" className="nav-backdrop" aria-hidden />
+
+      <nav id="mobile-nav" className="side-menu" aria-label="Mobile">
+        <div className="flex items-center justify-between px-5 pb-2 pt-5">
+          <p className="font-[family-name:var(--font-display)] text-xl text-[color:var(--ink)]">
+            Menu
+          </p>
+          <label
+            htmlFor="nav-toggle"
+            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-[color:var(--blush)] text-[color:var(--berry)]"
+          >
+            <X className="h-5 w-5" />
+            <span className="sr-only">Close menu</span>
+          </label>
+        </div>
+
+        <div className="flex flex-col gap-1 px-3 pb-8">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-xl px-3 py-3 text-base text-[color:var(--ink)]"
-              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-3 text-lg text-[color:var(--ink)]"
             >
               {link.label}
             </Link>
           ))}
-          <div className="mt-2 grid grid-cols-2 gap-2">
+
+          <p className="mt-4 px-3 text-xs uppercase tracking-[0.18em] text-[color:var(--gold-deep)]">
+            Catalog
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-2 px-2">
             {services.map((s) => (
               <a
                 key={s.id}
-                href="/#treatments"
-                className="rounded-xl bg-[color:var(--blush)]/55 px-3 py-2 text-sm text-[color:var(--berry)]"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  const go = () => {
-                    const input = document.getElementById(
-                      `treatment-${s.id}`,
-                    ) as HTMLInputElement | null;
-                    if (input) {
-                      input.checked = true;
-                      input.dispatchEvent(
-                        new Event("change", { bubbles: true }),
-                      );
-                    }
-                    document
-                      .getElementById("treatments")
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  };
-                  if (pathname !== "/") {
-                    window.location.href = `/#treatments`;
-                    return;
-                  }
-                  window.setTimeout(go, 50);
-                }}
+                href={`/#treatments`}
+                data-treatment={s.id}
+                className="rounded-xl bg-[color:var(--blush)]/70 px-3 py-3 text-sm text-[color:var(--berry)]"
               >
                 {s.catalog}
               </a>
             ))}
           </div>
+
           <a
             href={site.whatsappMessage()}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--berry)] px-4 py-3 text-sm font-medium text-[color:var(--cream)]"
-            onClick={() => setOpen(false)}
+            className="mx-2 mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--berry)] px-4 py-3.5 text-sm font-medium text-[color:var(--cream)]"
           >
             <WhatsAppIcon className="h-4 w-4" />
             Book on WhatsApp
           </a>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
