@@ -107,10 +107,18 @@ export function SiteHeader() {
             {services.map((s) => (
               <a
                 key={s.id}
-                href={`#${s.id}`}
+                href={`#treatments`}
                 className="rounded-xl bg-[color:var(--blush)]/55 px-3 py-2 text-sm text-[color:var(--berry)]"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
+                  const input = document.getElementById(
+                    `treatment-${s.id}`,
+                  ) as HTMLInputElement | null;
+                  if (input) {
+                    input.checked = true;
+                    input.dispatchEvent(new Event("change", { bubbles: true }));
+                  }
                   window.setTimeout(() => {
                     document
                       .getElementById("treatments")

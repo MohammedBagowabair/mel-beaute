@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   formatRM,
@@ -10,7 +7,6 @@ import {
   type ServiceCategory,
 } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
-import { cn } from "@/lib/utils";
 
 function PriceBits({ prices }: { prices: PriceLine[] }) {
   return (
@@ -131,33 +127,10 @@ function ServicePanel({ service }: { service: ServiceCategory }) {
 }
 
 export function ServicesSection() {
-  const [activeId, setActiveId] = useState(services[0].id);
-  const active =
-    services.find((s) => s.id === activeId) ?? services[0];
-
-  useEffect(() => {
-    const applyHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (services.some((s) => s.id === hash)) {
-        setActiveId(hash);
-      }
-    };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
-    return () => window.removeEventListener("hashchange", applyHash);
-  }, []);
-
-  const selectTab = (id: string) => {
-    setActiveId(id);
-    const url = new URL(window.location.href);
-    url.hash = id;
-    window.history.replaceState(null, "", url);
-  };
-
   return (
     <section
       id="treatments"
-      className="relative scroll-mt-24 px-4 py-16 sm:px-6 sm:py-24"
+      className="relative z-10 scroll-mt-24 px-4 py-16 sm:px-6 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
@@ -170,43 +143,51 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div
-          role="tablist"
-          aria-label="Treatment categories"
-          className="mt-8 flex gap-2 overflow-x-auto pb-2 sm:mt-10 sm:flex-wrap sm:overflow-visible"
-        >
-          {services.map((s) => {
-            const selected = activeId === s.id;
-            return (
-              <button
-                key={s.id}
-                type="button"
-                role="tab"
-                id={`tab-${s.id}`}
-                aria-selected={selected}
-                aria-controls={`panel-${s.id}`}
-                tabIndex={selected ? 0 : -1}
-                onClick={() => selectTab(s.id)}
-                className={cn(
-                  "shrink-0 rounded-full px-4 py-2.5 text-sm font-medium transition-colors",
-                  selected
-                    ? "bg-[color:var(--berry)] text-[color:var(--cream)] shadow-[0_10px_20px_-12px_rgba(122,36,58,0.8)]"
-                    : "bg-[color:var(--blush)]/80 text-[color:var(--ink)] hover:bg-[color:var(--blush)]",
-                )}
+        {/* Native radio tabs: work without client JS / hydration */}
+        <div className="treatment-tabs relative z-20 mt-8 sm:mt-10">
+          {services.map((s, i) => (
+            <input
+              key={`input-${s.id}`}
+              type="radio"
+              name="treatment-category"
+              id={`treatment-${s.id}`}
+              value={s.id}
+              defaultChecked={i === 0}
+              className="treatment-tab-input peer"
+              data-tab={s.id}
+            />
+          ))}
+
+          <div
+            className="relative z-20 flex gap-2 overflow-x-auto pb-2 sm:flex-wrap sm:overflow-visible"
+            role="tablist"
+            aria-label="Treatment categories"
+          >
+            {services.map((s) => (
+              <label
+                key={`label-${s.id}`}
+                htmlFor={`treatment-${s.id}`}
+                id={s.id}
+                className="treatment-tab-label relative z-20 shrink-0 cursor-pointer scroll-mt-28 rounded-full bg-[color:var(--blush)]/80 px-4 py-2.5 text-sm font-medium text-[color:var(--ink)] transition-colors hover:bg-[color:var(--blush)]"
               >
                 {s.catalog}
-              </button>
-            );
-          })}
-        </div>
+              </label>
+            ))}
+          </div>
 
-        <div
-          role="tabpanel"
-          id={`panel-${active.id}`}
-          aria-labelledby={`tab-${active.id}`}
-          className="mt-4 rounded-[2rem] bg-[color:var(--blush)]/40 px-3 py-4 sm:mt-6 sm:px-6 sm:py-6 md:px-8"
-        >
-          <ServicePanel key={active.id} service={active} />
+          <div className="relative z-10 mt-4 rounded-[2rem] bg-[color:var(--blush)]/40 px-3 py-4 sm:mt-6 sm:px-6 sm:py-6 md:px-8">
+            {services.map((s) => (
+              <div
+                key={`panel-${s.id}`}
+                className="treatment-panel"
+                data-panel={s.id}
+                role="tabpanel"
+                aria-labelledby={s.id}
+              >
+                <ServicePanel service={s} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

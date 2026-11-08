@@ -152,6 +152,43 @@ body {
   );
 }
 
+/* Treatment category tabs — pure CSS, no JS required */
+.treatment-tab-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.treatment-panel {
+  display: none;
+}
+
+.treatment-tabs:has(#treatment-pico:checked) .treatment-panel[data-panel="pico"],
+.treatment-tabs:has(#treatment-laser:checked) .treatment-panel[data-panel="laser"],
+.treatment-tabs:has(#treatment-threads:checked) .treatment-panel[data-panel="threads"],
+.treatment-tabs:has(#treatment-mesolipo:checked) .treatment-panel[data-panel="mesolipo"],
+.treatment-tabs:has(#treatment-skinz:checked) .treatment-panel[data-panel="skinz"],
+.treatment-tabs:has(#treatment-drips:checked) .treatment-panel[data-panel="drips"],
+.treatment-tabs:has(#treatment-btox:checked) .treatment-panel[data-panel="btox"],
+.treatment-tabs:has(#treatment-fillers:checked) .treatment-panel[data-panel="fillers"] {
+  display: block;
+}
+
+.treatment-tabs:has(#treatment-pico:checked) label[for="treatment-pico"],
+.treatment-tabs:has(#treatment-laser:checked) label[for="treatment-laser"],
+.treatment-tabs:has(#treatment-threads:checked) label[for="treatment-threads"],
+.treatment-tabs:has(#treatment-mesolipo:checked) label[for="treatment-mesolipo"],
+.treatment-tabs:has(#treatment-skinz:checked) label[for="treatment-skinz"],
+.treatment-tabs:has(#treatment-drips:checked) label[for="treatment-drips"],
+.treatment-tabs:has(#treatment-btox:checked) label[for="treatment-btox"],
+.treatment-tabs:has(#treatment-fillers:checked) label[for="treatment-fillers"] {
+  background: var(--berry);
+  color: var(--cream);
+  box-shadow: 0 10px 20px -12px rgba(122, 36, 58, 0.8);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
