@@ -6,7 +6,9 @@ import {
   type PriceLine,
   type ServiceCategory,
 } from "@/lib/site";
+import { Sparkles } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { treatmentIcons } from "@/components/treatment-icons";
 
 function PriceBits({ prices }: { prices: PriceLine[] }) {
   return (
@@ -158,21 +160,31 @@ export function ServicesSection() {
             />
           ))}
 
+          <div className="treatment-tab-rail relative z-20">
           <div
-            className="relative z-20 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
+            className="treatment-tab-scroller relative z-20 -mx-4 flex gap-3 overflow-x-auto px-4 pb-3 pt-1 sm:-mx-0 sm:gap-4 sm:px-1"
             role="tablist"
             aria-label="Treatment categories"
           >
-            {services.map((s) => (
-              <label
-                key={`label-${s.id}`}
-                htmlFor={`treatment-${s.id}`}
-                id={s.id}
-                className="treatment-tab-label relative z-20 cursor-pointer scroll-mt-28 rounded-full bg-[color:var(--blush)]/80 px-3 py-2.5 text-center text-sm font-medium text-[color:var(--ink)] transition-colors hover:bg-[color:var(--blush)] sm:shrink-0 sm:px-4 sm:text-left"
-              >
-                {s.catalog}
-              </label>
-            ))}
+            {services.map((s) => {
+              const Icon = treatmentIcons[s.id] ?? Sparkles;
+              return (
+                <label
+                  key={`label-${s.id}`}
+                  htmlFor={`treatment-${s.id}`}
+                  id={s.id}
+                  className="treatment-tab-label relative z-20 flex w-[4.75rem] shrink-0 cursor-pointer scroll-mt-28 snap-start flex-col items-center gap-2 sm:w-[5.25rem]"
+                >
+                  <span className="treatment-tab-circle flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--blush)] text-[color:var(--berry)] ring-1 ring-[color:var(--gold)]/30 transition-[background,color,box-shadow,transform] sm:h-16 sm:w-16">
+                    <Icon className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.6} />
+                  </span>
+                  <span className="treatment-tab-name text-center text-[0.7rem] font-medium leading-tight text-[color:var(--ink)] sm:text-xs">
+                    {s.catalog}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
           </div>
 
           <div className="relative z-10 mt-4 rounded-[2rem] bg-[color:var(--blush)]/40 px-3 py-4 sm:mt-6 sm:px-6 sm:py-6 md:px-8">

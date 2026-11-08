@@ -176,27 +176,65 @@ body {
   display: block;
 }
 
-.treatment-tabs:has(#treatment-pico:checked) label[for="treatment-pico"],
-.treatment-tabs:has(#treatment-laser:checked) label[for="treatment-laser"],
-.treatment-tabs:has(#treatment-threads:checked) label[for="treatment-threads"],
-.treatment-tabs:has(#treatment-mesolipo:checked) label[for="treatment-mesolipo"],
-.treatment-tabs:has(#treatment-skinz:checked) label[for="treatment-skinz"],
-.treatment-tabs:has(#treatment-drips:checked) label[for="treatment-drips"],
-.treatment-tabs:has(#treatment-btox:checked) label[for="treatment-btox"],
-.treatment-tabs:has(#treatment-fillers:checked) label[for="treatment-fillers"] {
-  background: var(--berry);
-  color: var(--cream);
-  box-shadow: 0 10px 20px -12px rgba(122, 36, 58, 0.8);
+.treatment-tab-rail {
+  position: relative;
 }
 
-@media (max-width: 639px) {
-  .treatment-tab-label {
-    min-height: 2.75rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.2;
+.treatment-tab-rail::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0.75rem;
+  width: 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--cream));
+  z-index: 21;
+}
+
+@media (min-width: 640px) {
+  .treatment-tab-rail::after {
+    display: none;
   }
+}
+
+.treatment-tab-scroller {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+
+.treatment-tab-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.treatment-tabs:has(#treatment-pico:checked) label[for="treatment-pico"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-laser:checked) label[for="treatment-laser"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-threads:checked) label[for="treatment-threads"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-mesolipo:checked) label[for="treatment-mesolipo"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-skinz:checked) label[for="treatment-skinz"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-drips:checked) label[for="treatment-drips"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-btox:checked) label[for="treatment-btox"] .treatment-tab-circle,
+.treatment-tabs:has(#treatment-fillers:checked) label[for="treatment-fillers"] .treatment-tab-circle {
+  background: var(--berry);
+  color: var(--cream);
+  box-shadow: 0 12px 24px -12px rgba(122, 36, 58, 0.85);
+  transform: translateY(-2px);
+  --tw-ring-color: transparent;
+}
+
+.treatment-tabs:has(#treatment-pico:checked) label[for="treatment-pico"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-laser:checked) label[for="treatment-laser"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-threads:checked) label[for="treatment-threads"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-mesolipo:checked) label[for="treatment-mesolipo"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-skinz:checked) label[for="treatment-skinz"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-drips:checked) label[for="treatment-drips"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-btox:checked) label[for="treatment-btox"] .treatment-tab-name,
+.treatment-tabs:has(#treatment-fillers:checked) label[for="treatment-fillers"] .treatment-tab-name {
+  color: var(--berry);
+  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: reduce) {
