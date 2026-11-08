@@ -154,6 +154,10 @@ body {
   border: 0;
 }
 
+.site-header {
+  z-index: 80;
+}
+
 .site-header-bar {
   background: color-mix(in oklab, var(--cream) 88%, transparent);
   backdrop-filter: blur(12px);
