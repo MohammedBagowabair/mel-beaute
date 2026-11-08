@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #fff7f4;
+  --blush: #f6d5de;
+  --blush-deep: #e8a9b8;
+  --berry: #8a2440;
+  --ink: #3a1d28;
+  --ink-soft: #6d4554;
+  --gold: #d4af61;
+  --gold-deep: #9a7428;
+  --horizon-low: #f3c3d0;
+  --horizon-mid: #f8e2e8;
+  --horizon-high: #fff9f6;
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --selection: color-mix(in oklab, var(--blush-deep) 55%, white);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  min-height: 100%;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 3px;
+}
+
+.atmosphere {
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--horizon-low) 0%, transparent 55%),
+    linear-gradient(
+      180deg,
+      var(--horizon-low) 0%,
+      var(--horizon-mid) 38%,
+      var(--horizon-high) 72%,
+      var(--cream) 100%
+    );
+}
+
+.hero-sheen {
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 35%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 20%, rgba(212, 175, 97, 0.18), transparent 60%);
+}
+
+.petal-drift {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  border-radius: 80% 0 80% 0;
+  background: color-mix(in oklab, var(--blush-deep) 70%, white);
+  opacity: 0.35;
+  animation: petal-fall linear infinite;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate3d(12px, 110vh, 0) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-up-delay {
+  animation: reveal-up 1000ms cubic-bezier(0.22, 1, 0.36, 1) 160ms both;
+}
+
+.reveal-up-delay-2 {
+  animation: reveal-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) 280ms both;
+}
+
+.reveal-card {
+  animation: reveal-up 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+.wa-float {
+  animation: wa-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes wa-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--gold) 80%, transparent),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-up,
+  .reveal-up-delay,
+  .reveal-up-delay-2,
+  .reveal-card,
+  .petal,
+  .wa-float {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
