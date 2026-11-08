@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { services } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 
 export function CatalogLinks() {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export function CatalogLinks() {
       {services.map((s) => (
         <li key={s.id}>
           <a
-            href="/#treatments"
+            href={withBase("/#treatments")}
             className="hover:text-[color:var(--cream)]"
             onClick={(e) => {
               if (pathname !== "/") {

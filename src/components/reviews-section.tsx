@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { reviews, site } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 
 export function ReviewsSection() {
   return (
@@ -9,7 +10,7 @@ export function ReviewsSection() {
     >
       <div className="pointer-events-none absolute -left-16 top-10 opacity-40 sm:opacity-60">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/brand/floral.svg" alt="" className="h-48 w-48 rotate-[-18deg]" />
+        <img src={withBase("/brand/floral.svg")} alt="" className="h-48 w-48 rotate-[-18deg]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl">

@@ -4,6 +4,14 @@ Marketing website for **Mel Beaute & Aesthetic** (MB Aesthetic) in Taman Desa, K
 
 The site showcases WhatsApp catalog treatments (Pico, Laser, Nose Thread, Mesolipo, Skinz, Drips Whitening, BToX, Dermal Fillers), Google review social proof, locations, and hours. Every booking CTA opens WhatsApp. There is no backend, database, or payment flow.
 
+## GitHub Pages
+
+This app exports a static site (`out/`) and ships a Pages workflow at `.github/workflows/pages.yml`.
+
+1. Push the project to a GitHub repository you own.
+2. In the repo, open **Settings → Pages → Build and deployment** and choose **GitHub Actions**.
+3. The workflow runs on pushes to `main`. A repository named `yourname.github.io` is served at the site root. Any other repository name is served at `https://yourname.github.io/repository-name/`.
+
 ## Run locally
 
 ```bash
