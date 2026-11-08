@@ -2,20 +2,25 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { site, services } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "#treatments", label: "Treatments" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#visit", label: "Visit" },
+  { href: "/about", label: "About" },
+  { href: "/#treatments", label: "Treatments" },
+  { href: "/#reviews", label: "Reviews" },
+  { href: "/#visit", label: "Visit" },
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const solid = scrolled || open || pathname !== "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -31,17 +36,21 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-300",
-        scrolled || open
+        solid
           ? "bg-[color:var(--cream)]/90 shadow-[0_10px_30px_-20px_rgba(90,40,55,0.45)] backdrop-blur-md"
           : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6">
-        <a href="#top" className="group flex items-center gap-3">
+        <Link href="/" className="group flex items-center gap-3">
           <Image
             src="/brand/logo.svg"
             alt={site.name}
@@ -50,17 +59,22 @@ export function SiteHeader() {
             className="h-10 w-auto sm:h-12"
             priority
           />
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="font-[family-name:var(--font-body)] text-sm tracking-wide text-[color:var(--ink)]/75 transition-colors hover:text-[color:var(--berry)]"
+              className={cn(
+                "font-[family-name:var(--font-body)] text-sm tracking-wide transition-colors hover:text-[color:var(--berry)]",
+                pathname === link.href
+                  ? "text-[color:var(--berry)]"
+                  : "text-[color:var(--ink)]/75",
+              )}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href={site.whatsappMessage()}
@@ -94,36 +108,43 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="rounded-xl px-3 py-3 text-base text-[color:var(--ink)]"
               onClick={() => setOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <div className="mt-2 grid grid-cols-2 gap-2">
             {services.map((s) => (
               <a
                 key={s.id}
-                href={`#treatments`}
+                href="/#treatments"
                 className="rounded-xl bg-[color:var(--blush)]/55 px-3 py-2 text-sm text-[color:var(--berry)]"
                 onClick={(e) => {
                   e.preventDefault();
                   setOpen(false);
-                  const input = document.getElementById(
-                    `treatment-${s.id}`,
-                  ) as HTMLInputElement | null;
-                  if (input) {
-                    input.checked = true;
-                    input.dispatchEvent(new Event("change", { bubbles: true }));
-                  }
-                  window.setTimeout(() => {
+                  const go = () => {
+                    const input = document.getElementById(
+                      `treatment-${s.id}`,
+                    ) as HTMLInputElement | null;
+                    if (input) {
+                      input.checked = true;
+                      input.dispatchEvent(
+                        new Event("change", { bubbles: true }),
+                      );
+                    }
                     document
                       .getElementById("treatments")
                       ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }, 50);
+                  };
+                  if (pathname !== "/") {
+                    window.location.href = `/#treatments`;
+                    return;
+                  }
+                  window.setTimeout(go, 50);
                 }}
               >
                 {s.catalog}

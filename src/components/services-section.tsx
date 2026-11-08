@@ -159,7 +159,7 @@ export function ServicesSection() {
           ))}
 
           <div
-            className="relative z-20 flex gap-2 overflow-x-auto pb-2 sm:flex-wrap sm:overflow-visible"
+            className="relative z-20 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-2"
             role="tablist"
             aria-label="Treatment categories"
           >
@@ -168,7 +168,7 @@ export function ServicesSection() {
                 key={`label-${s.id}`}
                 htmlFor={`treatment-${s.id}`}
                 id={s.id}
-                className="treatment-tab-label relative z-20 shrink-0 cursor-pointer scroll-mt-28 rounded-full bg-[color:var(--blush)]/80 px-4 py-2.5 text-sm font-medium text-[color:var(--ink)] transition-colors hover:bg-[color:var(--blush)]"
+                className="treatment-tab-label relative z-20 cursor-pointer scroll-mt-28 rounded-full bg-[color:var(--blush)]/80 px-3 py-2.5 text-center text-sm font-medium text-[color:var(--ink)] transition-colors hover:bg-[color:var(--blush)] sm:shrink-0 sm:px-4 sm:text-left"
               >
                 {s.catalog}
               </label>

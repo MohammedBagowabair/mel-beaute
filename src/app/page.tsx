@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { ShieldCheck, Sparkles, Stethoscope, Leaf } from "lucide-react";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteShell } from "@/components/site-shell";
 import { ServicesSection } from "@/components/services-section";
 import { ReviewsSection } from "@/components/reviews-section";
 import { VisitSection } from "@/components/visit-section";
-import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { site, values } from "@/lib/site";
 
@@ -13,9 +11,8 @@ const valueIcons = [ShieldCheck, Sparkles, Stethoscope, Leaf];
 
 export default function Home() {
   return (
-    <>
-      <SiteHeader />
-      <main id="top" className="flex-1">
+    <SiteShell>
+      <div id="top">
         <section className="atmosphere relative min-h-[100svh] overflow-hidden">
           <div className="hero-sheen absolute inset-0" />
           <div className="petal-drift" aria-hidden>
@@ -97,8 +94,13 @@ export default function Home() {
             </div>
 
             <div className="reveal-up-delay-2 mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs uppercase tracking-[0.18em] text-[color:var(--ink-soft)]">
-              <span>{site.rating}★ Google · {site.reviewCount} reviews</span>
-              <span className="hidden text-[color:var(--gold)] sm:inline" aria-hidden>
+              <span>
+                {site.rating}★ Google · {site.reviewCount} reviews
+              </span>
+              <span
+                className="hidden text-[color:var(--gold)] sm:inline"
+                aria-hidden
+              >
                 •
               </span>
               <span>By appointment only</span>
@@ -132,9 +134,7 @@ export default function Home() {
         <ReviewsSection />
         <div className="gold-rule mx-auto max-w-4xl" />
         <VisitSection />
-      </main>
-      <SiteFooter />
-      <WhatsAppFloat />
-    </>
+      </div>
+    </SiteShell>
   );
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { site, services } from "@/lib/site";
+import Link from "next/link";
+import { site } from "@/lib/site";
 import { CatalogLinks } from "@/components/catalog-links";
 
 export function SiteFooter() {
@@ -18,6 +19,12 @@ export function SiteFooter() {
             {site.slogan}. Aesthetic care in Kuala Lumpur & Johor Bahru —
             booked on WhatsApp.
           </p>
+          <Link
+            href="/about"
+            className="mt-4 inline-block text-sm font-medium text-[color:var(--gold)] hover:text-[color:var(--cream)]"
+          >
+            About us
+          </Link>
         </div>
 
         <div>
