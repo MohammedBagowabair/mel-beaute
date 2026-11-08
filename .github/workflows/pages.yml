@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, cursor/mel-beaute-website-e46a]
   workflow_dispatch:
 
 permissions:
