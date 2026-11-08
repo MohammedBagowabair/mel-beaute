@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# separate spa site, published from its own repository
+/sofia/
+
 # production
 /build
 
