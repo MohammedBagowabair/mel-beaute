@@ -21,7 +21,7 @@ export function SiteHeader() {
         aria-controls="mobile-nav"
       />
 
-      <div className="site-header-bar relative z-[70] mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-[4.5rem] sm:px-6">
+      <div className="site-header-bar relative z-[70] flex h-16 w-full items-center justify-between px-4 sm:h-[4.5rem] sm:px-8 lg:px-12">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/brand/logo.svg"
