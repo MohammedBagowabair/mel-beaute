@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { site, services } from "@/lib/site";
@@ -20,38 +21,35 @@ export function SiteHeader() {
         aria-controls="mobile-nav"
       />
 
-      <div className="site-header-bar relative z-[70] flex h-16 w-full items-center justify-between gap-6 px-4 sm:h-[4.75rem] sm:px-8 lg:px-12">
-        <Link href="/" className="nav-brand flex min-w-0 items-center gap-3">
-          <span className="nav-mark" aria-hidden>
-            MB
-          </span>
-          <span className="min-w-0 leading-tight">
-            <span className="block font-[family-name:var(--font-display)] text-[1.05rem] tracking-wide text-[color:var(--cream)] sm:text-lg">
-              Mel Beaute
-            </span>
-            <span className="block text-[0.62rem] uppercase tracking-[0.28em] text-[#f3e0a8]">
-              Aesthetic
-            </span>
-          </span>
-          <span className="sr-only">{site.name}</span>
+      <div className="site-header-bar relative z-[70] flex h-16 w-full items-center justify-between px-4 sm:h-[4.5rem] sm:px-8 lg:px-12">
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/brand/logo.svg"
+            alt={site.name}
+            width={120}
+            height={68}
+            className="h-10 w-auto sm:h-12"
+            priority
+          />
         </Link>
 
-        <nav className="nav-links hidden items-center md:flex" aria-label="Primary">
-          {links.map((link, index) => (
-            <span key={link.href} className="flex items-center">
-              {index > 0 ? <span className="nav-gem" aria-hidden /> : null}
-              <Link href={link.href} className="nav-link">
-                {link.label}
-              </Link>
-            </span>
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm tracking-wide text-[color:var(--ink)]/80 transition-colors hover:text-[color:var(--berry)]"
+            >
+              {link.label}
+            </Link>
           ))}
           <a
             href={site.whatsappMessage()}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-book"
+            className="inline-flex items-center gap-2 rounded-full bg-[color:var(--berry)] px-4 py-2 text-sm font-medium text-[color:var(--cream)] shadow-[0_12px_24px_-12px_rgba(122,36,58,0.7)] transition-transform hover:-translate-y-0.5"
           >
-            <WhatsAppIcon className="h-4 w-4 text-[#128C7E]" />
+            <WhatsAppIcon className="h-4 w-4" />
             Book on WhatsApp
           </a>
         </nav>
