@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.addEventListener('click',function(e){var a=e.target.closest('#mobile-nav a');if(!a)return;var t=document.getElementById('nav-toggle');if(t)t.checked=false;var id=a.getAttribute('data-treatment');if(!id)return;var input=document.getElementById('treatment-'+id);if(input)input.checked=true;});`,
+            __html: `document.addEventListener('click',function(e){var a=e.target.closest('#mobile-nav a');if(!a)return;var t=document.getElementById('nav-toggle');if(t)t.checked=false;var id=a.getAttribute('data-treatment');if(!id)return;var input=document.getElementById('treatment-'+id);if(input)input.checked=true;});(function(){function sync(){var header=document.querySelector('.site-header');if(!header)return;var pink=document.querySelector('.atmosphere');var edge=header.getBoundingClientRect().bottom||72;var onPink=!!(pink&&pink.getBoundingClientRect().bottom>edge-8);header.classList.toggle('is-on-light',!onPink);}sync();window.addEventListener('scroll',sync,{passive:true});window.addEventListener('resize',sync);})();`,
           }}
         />
       </body>

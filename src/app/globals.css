@@ -158,8 +158,18 @@ body {
   z-index: 80;
   width: 100%;
   background: color-mix(in oklab, var(--horizon-low) 55%, transparent);
-  border-bottom: 0;
+  border-bottom: 1px solid transparent;
   box-shadow: none;
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.site-header.is-on-light {
+  background: #fffdfb;
+  border-bottom-color: color-mix(in oklab, var(--blush-deep) 40%, white);
+  box-shadow: 0 12px 28px -22px rgba(90, 40, 55, 0.45);
 }
 
 .site-header-bar {
