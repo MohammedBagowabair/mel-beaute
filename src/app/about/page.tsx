@@ -5,6 +5,7 @@ import { MapPin, Clock3, Star, Heart } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { site, values, services } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: `About Us | ${site.name}`,
@@ -34,7 +35,7 @@ export default function AboutPage() {
         <div className="hero-sheen absolute inset-0" />
         <div className="pointer-events-none absolute -right-8 top-20 opacity-50">
           <Image
-            src="/brand/floral.svg"
+            src={withBase("/brand/floral.svg")}
             alt=""
             width={220}
             height={220}

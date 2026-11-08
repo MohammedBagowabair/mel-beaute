@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { site, services } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 const links = [
@@ -24,7 +25,7 @@ export function SiteHeader() {
       <div className="site-header-bar relative z-[70] flex h-16 w-full items-center justify-between px-4 sm:h-[4.5rem] sm:px-8 lg:px-12">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/brand/logo.svg"
+            src={withBase("/brand/logo.svg")}
             alt={site.name}
             width={120}
             height={68}

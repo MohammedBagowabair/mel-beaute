@@ -8,6 +8,7 @@ import {
 } from "@/lib/site";
 import { Sparkles } from "lucide-react";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
+import { withBase } from "@/lib/utils";
 import { treatmentIcons } from "@/components/treatment-icons";
 
 function PriceBits({ prices }: { prices: PriceLine[] }) {
@@ -55,7 +56,7 @@ function ServicePanel({ service }: { service: ServiceCategory }) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
         <div className="relative h-28 w-full shrink-0 overflow-hidden rounded-2xl sm:h-32 sm:w-32">
           <Image
-            src={service.image}
+            src={withBase(service.image)}
             alt=""
             fill
             className="object-cover object-top"

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 import { CatalogLinks } from "@/components/catalog-links";
 
 export function SiteFooter() {
@@ -9,7 +10,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <Image
-            src="/brand/logo.svg"
+            src={withBase("/brand/logo.svg")}
             alt={site.name}
             width={140}
             height={80}

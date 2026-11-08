@@ -6,6 +6,7 @@ import { ReviewsSection } from "@/components/reviews-section";
 import { VisitSection } from "@/components/visit-section";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { site, values } from "@/lib/site";
+import { withBase } from "@/lib/utils";
 
 const valueIcons = [ShieldCheck, Sparkles, Stethoscope, Leaf];
 
@@ -33,7 +34,7 @@ export default function Home() {
 
           <div className="pointer-events-none absolute -left-10 bottom-16 opacity-50 sm:left-0 sm:opacity-70">
             <Image
-              src="/brand/floral.svg"
+              src={withBase("/brand/floral.svg")}
               alt=""
               width={280}
               height={280}
@@ -43,7 +44,7 @@ export default function Home() {
           </div>
           <div className="pointer-events-none absolute -right-8 top-24 opacity-45 sm:right-4 sm:opacity-65">
             <Image
-              src="/brand/floral.svg"
+              src={withBase("/brand/floral.svg")}
               alt=""
               width={240}
               height={240}
@@ -54,7 +55,7 @@ export default function Home() {
 
           <div className="relative mx-auto flex min-h-[100svh] max-w-4xl flex-col items-center justify-center px-4 pb-24 pt-28 text-center sm:px-6 sm:pb-28 sm:pt-32">
             <Image
-              src="/brand/logo.svg"
+              src={withBase("/brand/logo.svg")}
               alt={site.name}
               width={220}
               height={126}
